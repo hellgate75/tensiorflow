@@ -68,4 +68,4 @@ In order to access to TensiorFlow™ shell :
 
 ### License ###
 
-[LGPL 3](https://github.com/hellgate75/sparkling-water/blob/master/LICENSE)
+[LGPL 3](https://github.com/hellgate75/tensiorflow/blob/master/LICENSE)
