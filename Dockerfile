@@ -21,14 +21,18 @@ RUN apt-get update && \
       https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-$TENSIOR_FLOW_VERSION-$TENSIOR_FLOW_TYPE-none-linux_x86_64.whl && \
     mkdir -p /root/tests && mkdir -p /root/tf-app
 
+COPY run-tensior-flow.sh /usr/local/bin/run-tensior-flow
+
+RUN chmod +x /usr/local/bin/run-tensior-flow
+
 COPY tests/test.py /root/tests/test.py
 
 RUN python /root/tests/test.py
 
 WORKDIR /root
 
+WORKDIR /root
+
 VOLUME ["/root/tf-app"]
 
-ENTRYPOINT ["/bin/bash"]
-
-CMD ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["run-tensior-flow"]
