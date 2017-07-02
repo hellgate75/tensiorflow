@@ -42,7 +42,7 @@ RUN echo "Install cuDNN Nvidia library ..." && \
     export LD_LIBRARY_PATH=/opt/cuDNN-6/lib64:$LD_LIBRARY_PATH
 
 RUN pip install --upgrade \
-      https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-$TENSIOR_FLOW_VERSION-$TENSIOR_FLOW_TYPE-none-linux_x86_64.whl && \
+      https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-$TENSIOR_FLOW_VERSION-$TENSIOR_FLOW_TYPE-none-linux_x86_64.whl && \
     mkdir -p /root/tests && mkdir -p /root/tf-app
 
 COPY tests/test.py /root/tests/test.py
