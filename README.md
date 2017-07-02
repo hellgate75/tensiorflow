@@ -81,11 +81,18 @@ docker run --rm -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tens
 ```
 
 
-### Test Spark / YARN console ###
+### Test TensiorFlow™ console ###
 
 In order to access to TensiorFlow™ shell :
 ```bash
     docker exec -it my-tensiorflow bash
+```
+
+
+Then, into docker container, type :
+
+```bash
+    python /root/tests/test.py
 ```
 
 
