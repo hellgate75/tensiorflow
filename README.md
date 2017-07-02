@@ -5,6 +5,7 @@ Docker Image for TensorFlow™. This Docker image provides Python, Java, C and G
 
 Provided images :
 * [TensorFlow™ 1.2.1 with Python 2.7 CPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-cp27)
+* [TensorFlow™ 1.2.1 with Python 2.7 GPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-gp27)
 
 
 ### Introduction ###
@@ -18,11 +19,26 @@ https://www.tensorflow.org/
 Here some infromation about  TensorFlow™ develoment :
 https://www.tensorflow.org/get_started/
 
+Here about CUDA Nvidia toolkit :
+https://developer.nvidia.com/cuda-toolkit
+
+Here about cuDNN Nvidia library :
+https://developer.nvidia.com/cudnn
+
 
 ### Goals ###
 
 This docker images has been designed to be a test, development, integration, production environment for  TensorFlow™.
 *No warranties for production use.*
+
+
+### cuDA / cuDNN Build tips ###
+
+Add /opt/cuDNN-6 to your build and link process by adding -I/opt/cuDNN-6/include to your compile line and -L/opt/cuDNN-6/lib64 -lcudnn to your link line.
+
+See :
+
+https://github.com/hellgate75/tensiorflow/tree/1.2.1-gp27/docs/cudnn_install-2.txt
 
 
 ### Docker Image features ###
@@ -54,7 +70,7 @@ None
 Here a sample command to run TensiorFlow™ container:
 
 ```bash
-docker run -d -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cp27
+docker run -d -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-gp27
 ```
 
 

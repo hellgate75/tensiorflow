@@ -12,23 +12,49 @@ ENV PATH=$PATH:/usr/local/bin \
 
 USER root
 
-WORKDIR /
+WORKDIR /opt
 
 RUN apt-get update && \
-    apt-get  --no-install-recommends install -y python-pip python-setuptools python-sklearn python-pandas python-numpy python-matplotlib software-properties-common python-software-properties && \
-    pip install --upgrade pip && \
-    pip install --upgrade \
-      https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-$TENSIOR_FLOW_VERSION-$TENSIOR_FLOW_TYPE-none-linux_x86_64.whl && \
+    apt-get  --no-install-recommends install -y vim pciutils build-essential python-pip python-setuptools python-sklearn python-pandas python-numpy python-matplotlib software-properties-common python-software-properties && \
+    apt-get -y upgrade && \
+    pip install --upgrade pip
+
+RUN echo "Install CUDA Nvidia drivers ..." && \
+    wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/7fa2af80.pub && \
+    cat 7fa2af80.pub | apt-key add - && \
+    rm 7fa2af80.pub && \
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_8.0.61-1_amd64.deb && \
+    sudo dpkg -i cuda-repo-ubuntu1604_8.0.61-1_amd64.deb && \
+    rm cuda-repo-ubuntu1604_8.0.61-1_amd64.deb && \
+    echo "deb http://ftp.debian.org/debian experimental main" >> /etc/apt/sources.list && \
+    sudo apt-get update && \
+    apt-get --no-install-recommends --allow-unauthenticated  install -y cuda
+
+COPY run-tensior-flow.sh /usr/local/bin/run-tensior-flow
+
+RUN chmod +x /usr/local/bin/run-tensior-flow
+
+#COPY cudnn-8.0-linux-x64-v6.0.tgz /opt/cudnn-8.0-linux-x64-v6.0.tgz
+
+RUN echo "Install cuDNN Nvidia library ..." && \
+    wget -q http://appliances-us-west-2.s3-us-west-2.amazonaws.com/cuDNN/cudnn-8.0-linux-x64-v6.0.tgz -O /opt/cudnn-8.0-linux-x64-v6.0.tgz && \
+    tar -xzf /opt/cudnn-8.0-linux-x64-v6.0.tgz -C /opt/ && \
+    rm -f /opt/cudnn-8.0-linux-x64-v6.0.tgz && \
+    mv /opt/cuda /opt/cuDNN-6 && \
+    export LD_LIBRARY_PATH=/opt/cuDNN-6/lib64:$LD_LIBRARY_PATH
+
+RUN pip install --upgrade \
+      https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-$TENSIOR_FLOW_VERSION-$TENSIOR_FLOW_TYPE-none-linux_x86_64.whl && \
     mkdir -p /root/tests && mkdir -p /root/tf-app
 
 COPY tests/test.py /root/tests/test.py
 
 RUN python /root/tests/test.py
 
+CMD "run-tensior-flow"
+
 WORKDIR /root
 
 VOLUME ["/root/tf-app"]
 
-ENTRYPOINT ["/bin/bash"]
-
-CMD ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["run-tensior-flow", "-bash"]
