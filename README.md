@@ -42,7 +42,7 @@ Ports:
 None
 
 
-### H2o™ Sparkling Water® Docker Environment Entries ###
+### TensiorFlow™ Docker Environment Entries ###
 
 Here TensioFlow® environment variables :
 
@@ -54,7 +54,7 @@ None
 Here a sample command to run TensiorFlow™ container:
 
 ```bash
-docker run -d -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorrlow:latest
+docker run -d -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cp27
 ```
 
 
