@@ -34,8 +34,6 @@ COPY run-tensior-flow.sh /usr/local/bin/run-tensior-flow
 
 RUN chmod +x /usr/local/bin/run-tensior-flow
 
-#COPY cudnn-8.0-linux-x64-v6.0.tgz /opt/cudnn-8.0-linux-x64-v6.0.tgz
-
 RUN echo "Install cuDNN Nvidia library ..." && \
     wget -q http://appliances-us-west-2.s3-us-west-2.amazonaws.com/cuDNN/cudnn-8.0-linux-x64-v6.0.tgz -O /opt/cudnn-8.0-linux-x64-v6.0.tgz && \
     tar -xzf /opt/cudnn-8.0-linux-x64-v6.0.tgz -C /opt/ && \
@@ -51,10 +49,8 @@ COPY tests/test.py /root/tests/test.py
 
 RUN python /root/tests/test.py
 
-CMD "run-tensior-flow"
-
 WORKDIR /root
 
 VOLUME ["/root/tf-app"]
 
-ENTRYPOINT ["run-tensior-flow", "-bash"]
+ENTRYPOINT ["run-tensior-flow"]

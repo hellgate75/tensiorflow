@@ -74,6 +74,13 @@ docker run -d -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensio
 ```
 
 
+You can run container with `-bash` argument for an on-flight execution and destroy, as follow :
+
+```bash
+docker run --rm -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-gp27 -bash my-command my-argument-1 ...  my-argument-n
+```
+
+
 ### Test Spark / YARN console ###
 
 In order to access to TensiorFlow™ shell :
