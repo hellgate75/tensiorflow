@@ -5,31 +5,62 @@ MAINTAINER Fabrizio Torelli (hellgate75@gmail.com)
 ARG DEBIAN_FRONTEND=noninteractive
 ARG RUNLEVEL=1
 
-ENV PATH=$PATH:/usr/local/bin \
+ENV PATH=$PATH:/usr/local/bin::/usr/local/go/bin \
+    GOROOT=/usr/local/go \
+    GOPATH=/root/go \
     DEBIAN_FRONTEND=noninteractive \
     TENSIOR_FLOW_VERSION=1.2.1 \
     TENSIOR_FLOW_TYPE=cp27
 
 USER root
 
-WORKDIR /
+WORKDIR /opt
 
 RUN apt-get update && \
-    apt-get  --no-install-recommends install -y python-pip python-setuptools python-sklearn python-pandas python-numpy python-matplotlib software-properties-common python-software-properties && \
+    apt-get  --no-install-recommends install -y \
+        git \
+        vim \
+        pciutils \
+        libfreetype6-dev \
+        libpng12-dev \
+        libzmq3-dev \
+        pkg-config \
+        python \
+        python-dev \
+        rsync \
+        python-pip \
+        python-setuptools \
+        python-sklearn \
+        python-pandas \
+        python-numpy \
+        python-matplotlib \
+        software-properties-common \
+        python-software-properties && \
+    apt-get -y upgrade && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
     pip install --upgrade pip && \
     pip install --upgrade \
       https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-$TENSIOR_FLOW_VERSION-$TENSIOR_FLOW_TYPE-none-linux_x86_64.whl && \
-    mkdir -p /root/tests && mkdir -p /root/tf-app
+    mkdir -p /root/tf-app
+
+
+RUN wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf go1.8.3.linux-amd64.tar.gz &&\
+    rm -f go1.8.3.linux-amd64.tar.gz && \
+    mkdir -p /root/go/src && \
+    go get github.com/tensorflow/tensorflow/tensorflow/go && \
+    go test github.com/tensorflow/tensorflow/tensorflow/go
 
 COPY run-tensior-flow.sh /usr/local/bin/run-tensior-flow
 
 RUN chmod +x /usr/local/bin/run-tensior-flow
 
-COPY tests/test.py /root/tests/test.py
+COPY tests/test.go /root/go/src/tests/main.go
 
-RUN python /root/tests/test.py
+WORKDIR /root/go/src/tests
 
-WORKDIR /root
+RUN go run /root/go/src/tests/main.go
 
 WORKDIR /root
 

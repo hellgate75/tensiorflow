@@ -6,6 +6,7 @@ Docker Image for TensorFlow™. This Docker image provides Python, Java, C and G
 Provided images :
 * [TensorFlow™ 1.2.1 with Python 2.7 CPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-cp27)
 * [TensorFlow™ 1.2.1 with Python 2.7 GPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-gp27)
+* [TensorFlow™ 1.2.1 with Go 1.8.3 CPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-cg183)
 
 
 ### Introduction ###
@@ -55,15 +56,22 @@ None
 Here a sample command to run TensiorFlow™ container:
 
 ```bash
-docker run -d -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cp27
+docker run -d -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cg183
 ```
 
 
 You can run container with `-bash` argument for an on-flight execution and destroy, as follow :
 
 ```bash
-docker run --rm -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cp27 -bash my-command my-argument-1 ...  my-argument-n
+docker run --rm -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cg183 -bash my-command my-argument-1 ...  my-argument-n
 ```
+
+
+*NOTE:*
+
+For GPU docker container versions, please use nvidia-docker available at :
+
+https://github.com/NVIDIA/nvidia-docker/wiki/Installation
 
 
 ### Test TensiorFlow™ console ###
@@ -77,7 +85,7 @@ In order to access to TensiorFlow™ shell :
 Then, into docker container, type :
 
 ```bash
-    python /root/tests/test.py
+    go run /root/go/src/tests/main.go
 ```
 
 
