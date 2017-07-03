@@ -41,7 +41,15 @@ Folder to install sources.
 
 Ports:
 
-None
+6006, 88888
+
+
+`6006` :
+TensorBoard WebUI Port
+
+
+`8888` :
+IPython WebUI Port
 
 
 ### TensiorFlow™ Docker Environment Entries ###

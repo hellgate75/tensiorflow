@@ -64,8 +64,10 @@ RUN wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz && \
     go test github.com/tensorflow/tensorflow/tensorflow/go
 
 COPY run-tensior-flow.sh /usr/local/bin/run-tensior-flow
+COPY start-tensoboard.sh /usr/local/bin/start-tensoboard
 
-RUN chmod +x /usr/local/bin/run-tensior-flow
+RUN chmod +x /usr/local/bin/run-tensior-flow && \
+    mkdir -p /root/.tensoboard && \
 
 COPY tests/test.go /root/go/src/tests/main.go
 
