@@ -4,10 +4,10 @@
 Docker Image for TensorFlow™. This Docker image provides Python, Java, C and Go execution environment.
 
 Provided images :
-* [TensorFlow™ 1.2.1 with Python 2.7 CPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-cp27)
-* [TensorFlow™ 1.2.1 with Python 2.7 GPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-gp27)
-* [TensorFlow™ 1.2.1 with Go 1.8.3 CPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-cg183)
-* [TensorFlow™ 1.2.1 with Go 1.8.3 GPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-gg183)
+* [TensorFlow™ 1.2.1 with Python 2.7 CPU](https://github.com/hellgate75/tensorflow/tree/1.2.1-cp27)
+* [TensorFlow™ 1.2.1 with Python 2.7 GPU](https://github.com/hellgate75/tensorflow/tree/1.2.1-gp27)
+* [TensorFlow™ 1.2.1 with Go 1.8.3 CPU](https://github.com/hellgate75/tensorflow/tree/1.2.1-cg183)
+* [TensorFlow™ 1.2.1 with Go 1.8.3 GPU](https://github.com/hellgate75/tensorflow/tree/1.2.1-gg183)
 
 
 ### Introduction ###
@@ -100,4 +100,4 @@ Then, into docker container, type :
 
 ### License ###
 
-[LGPL 3](https://github.com/hellgate75/tensiorflow/blob/master/LICENSE)
+[LGPL 3](https://github.com/hellgate75/tensorflow/blob/master/LICENSE)
