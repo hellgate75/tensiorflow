@@ -18,8 +18,27 @@ USER root
 WORKDIR /opt
 
 RUN apt-get update && \
-    apt-get  --no-install-recommends install -y vim pciutils build-essential python-pip python-setuptools python-sklearn python-pandas python-numpy python-matplotlib software-properties-common python-software-properties && \
+    apt-get  --no-install-recommends install -y \
+        vim \
+        pciutils \
+        libfreetype6-dev \
+        libpng12-dev \
+        libzmq3-dev \
+        pkg-config \
+        python \
+        python-dev \
+        rsync \
+        python-pip \
+        python-setuptools \
+        python-sklearn \
+        python-pandas \
+        python-numpy \
+        python-matplotlib \
+        software-properties-common \
+        python-software-properties && \
     apt-get -y upgrade && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
     pip install --upgrade pip
 
 RUN echo "Install CUDA Nvidia drivers ..." && \
