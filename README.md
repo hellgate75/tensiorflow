@@ -70,7 +70,7 @@ IPython WebUI Port
 
 ### TensiorFlow™ Docker Environment Entries ###
 
-Here TensioFlow® environment variables :
+Here TensorFlow® environment variables :
 
 * `PACKAGE_NAME` : Name of go language package assigned to your application
 * `AUTO_BUILD` : (true/false) Flag defining auto-build of package on start-up (default: false)
