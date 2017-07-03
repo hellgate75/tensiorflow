@@ -6,9 +6,16 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG RUNLEVEL=1
 
 ENV PATH=$PATH:/usr/local/bin:/usr/local/cuda/bin \
+    GOROOT=/usr/local/go \
+    GOPATH=/root/go \
+    PACKAGE_NAME="myapp" \
+    AUTO_BUILD=false \
+    BUILD_ARGUMENTS="-buildmode=exe" \
+    REPEAT_BUILD=false \
     DEBIAN_FRONTEND=noninteractive \
     CUDA_HOME=/usr/local/cuda \
-    LD_LIBRARY_PATH=/usr/local/cuda/lib64 \
+    LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/go/lib \
+    LIBRARY_PATH=/usr/local/go/lib \
     TENSIOR_FLOW_VERSION=1.2.1 \
     TENSIOR_FLOW_TYPE=cp27
 
@@ -79,11 +86,31 @@ RUN pip --no-cache-dir install \
       https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-$TENSIOR_FLOW_VERSION-$TENSIOR_FLOW_TYPE-none-linux_x86_64.whl && \
     mkdir -p /root/tests && mkdir -p /root/tf-app
 
-COPY tests/test.py /root/tests/test.py
+RUN wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf go1.8.3.linux-amd64.tar.gz &&\
+    rm -f go1.8.3.linux-amd64.tar.gz && \
+    # Change to "gpu" for GPU support
+    TF_TYPE="gpu" && \
+    TARGET_DIRECTORY='/usr/local/go' && \
+    curl -L \
+     "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-${TF_TYPE}-$(go env GOOS)-x86_64-1.2.1.tar.gz" | \
+    tar -C $TARGET_DIRECTORY -xz && \
+    echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list && \
+    curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add - && \
+    apt-get update && \
+    apt-get -y install bazel && \
+    apt-get -y upgrade bazel && \
+    cd /usr/local/go && \
+    ldconfig && \
+    mkdir -p /root/go/src && \
+    go get github.com/tensorflow/tensorflow/tensorflow/go && \
+    go test github.com/tensorflow/tensorflow/tensorflow/go
 
-RUN python /root/tests/test.py
+COPY tests/test.go /root/go/src/tests/main.go
 
 WORKDIR /root
+
+RUN go run /root/go/src/tests/main.go
 
 VOLUME ["/root/tf-app"]
 

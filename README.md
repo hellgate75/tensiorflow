@@ -7,6 +7,7 @@ Provided images :
 * [TensorFlow™ 1.2.1 with Python 2.7 CPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-cp27)
 * [TensorFlow™ 1.2.1 with Python 2.7 GPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-gp27)
 * [TensorFlow™ 1.2.1 with Go 1.8.3 CPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-cg183)
+* [TensorFlow™ 1.2.1 with Go 1.8.3 GPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-gg183)
 
 
 ### Introduction ###
@@ -60,7 +61,7 @@ Ports:
 
 
 `6006` :
-TensorBoard WebUI Port
+TensorBoard™ WebUI Port
 
 
 `8888` :
@@ -71,22 +72,24 @@ IPython WebUI Port
 
 Here TensioFlow® environment variables :
 
-None
-
+* `PACKAGE_NAME` : Name of go language package assigned to your application
+* `AUTO_BUILD` : (true/false) Flag defining auto-build of package on start-up (default: false)
+* `REPEAT_BUILD` : (true/false) Flag defining auto-build on any start-up (default: false)
+* `BUILD_ARGUMENTS` : flag defining auto-build of package on start-up (default: "-buildmode=exe") - See : https://golang.org/pkg/go/build/
 
 ### Sample command ###
 
 Here a sample command to run TensiorFlow™ container:
 
 ```bash
-docker run -d -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-gp27
+docker run -d -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-gg183
 ```
 
 
 You can run container with `-bash` argument for an on-flight execution and destroy, as follow :
 
 ```bash
-docker run --rm -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-gp27 -bash my-command my-argument-1 ...  my-argument-n
+docker run --rm -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-gg183 -bash my-command my-argument-1 ...  my-argument-n
 ```
 
 
@@ -108,7 +111,7 @@ In order to access to TensiorFlow™ shell :
 Then, into docker container, type :
 
 ```bash
-    python /root/tests/test.py
+    go run /root/go/src/tests/main.go
 ```
 
 
