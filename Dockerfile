@@ -11,7 +11,8 @@ ENV PATH=$PATH:/usr/local/bin::/usr/local/go/bin \
     DEBIAN_FRONTEND=noninteractive \
     TENSIOR_FLOW_VERSION=1.2.1 \
     TENSIOR_FLOW_TYPE=cp27 \
-    LD_LIBRARY_PATH=/usr/local/go/lib
+    LD_LIBRARY_PATH=/usr/local/go/lib \
+    LIBRARY_PATH=/usr/local/go/lib
 
 USER root
 
@@ -71,6 +72,8 @@ RUN wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz && \
     apt-get update && \
     apt-get -y install bazel && \
     apt-get -y upgrade bazel && \
+    cd /usr/local/go && \
+    ldconfig && \
     mkdir -p /root/go/src
     #  \
     # && go get github.com/tensorflow/tensorflow/tensorflow/go \
