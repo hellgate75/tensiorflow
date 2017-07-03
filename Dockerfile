@@ -40,6 +40,17 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     pip install --upgrade pip && \
+RUN pip --no-cache-dir install \
+        ipykernel \
+        jupyter \
+        matplotlib \
+        numpy \
+        scipy \
+        sklearn \
+        pandas \
+        Pillow \
+        && \
+    python -m ipykernel.kernelspec && \
     pip install --upgrade \
       https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-$TENSIOR_FLOW_VERSION-$TENSIOR_FLOW_TYPE-none-linux_x86_64.whl && \
     mkdir -p /root/tf-app
@@ -67,3 +78,9 @@ WORKDIR /root
 VOLUME ["/root/tf-app"]
 
 ENTRYPOINT ["run-tensior-flow"]
+
+# TensorBoard
+EXPOSE 6006
+
+# IPython
+EXPOSE 8888
