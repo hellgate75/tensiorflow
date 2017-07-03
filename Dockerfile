@@ -74,10 +74,9 @@ RUN wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz && \
     apt-get -y upgrade bazel && \
     cd /usr/local/go && \
     ldconfig && \
-    mkdir -p /root/go/src
-    #  \
-    # && go get github.com/tensorflow/tensorflow/tensorflow/go \
-    # && go test github.com/tensorflow/tensorflow/tensorflow/go
+    mkdir -p /root/go/src && \
+    go get github.com/tensorflow/tensorflow/tensorflow/go && \
+    go test github.com/tensorflow/tensorflow/tensorflow/go
 
 COPY run-tensior-flow.sh /usr/local/bin/run-tensior-flow
 COPY start-tensoboard.sh /usr/local/bin/start-tensoboard
@@ -89,7 +88,7 @@ COPY tests/test.go /root/go/src/tests/main.go
 
 WORKDIR /root/go/src/tests
 
-# RUN go run /root/go/src/tests/main.go
+RUN go run /root/go/src/tests/main.go
 
 WORKDIR /root
 
