@@ -6,6 +6,7 @@ Docker Image for TensorFlow™. This Docker image provides Python, Java, C and G
 Provided images :
 * [TensorFlow™ 1.2.1 with Python 2.7 CPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-cp27)
 * [TensorFlow™ 1.2.1 with Python 2.7 GPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-gp27)
+* [TensorFlow™ 1.2.1 with Go 1.8.3 CPU](https://github.com/hellgate75/tensiorflow/tree/1.2.1-cg183)
 
 
 ### Introduction ###
@@ -79,6 +80,13 @@ You can run container with `-bash` argument for an on-flight execution and destr
 ```bash
 docker run --rm -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-gp27 -bash my-command my-argument-1 ...  my-argument-n
 ```
+
+
+*NOTE:*
+
+For GPU docker container versions, please use nvidia-docker available at :
+
+https://github.com/NVIDIA/nvidia-docker/wiki/Installation
 
 
 ### Test TensiorFlow™ console ###
