@@ -10,7 +10,8 @@ ENV PATH=$PATH:/usr/local/bin::/usr/local/go/bin \
     GOPATH=/root/go \
     DEBIAN_FRONTEND=noninteractive \
     TENSIOR_FLOW_VERSION=1.2.1 \
-    TENSIOR_FLOW_TYPE=cp27
+    TENSIOR_FLOW_TYPE=cp27 \
+    LD_LIBRARY_PATH=/usr/local/go/lib
 
 USER root
 
@@ -39,7 +40,7 @@ RUN apt-get update && \
     apt-get -y upgrade && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    pip install --upgrade pip && \
+    pip install --upgrade pip
 RUN pip --no-cache-dir install \
         ipykernel \
         jupyter \
@@ -58,22 +59,29 @@ RUN pip --no-cache-dir install \
 
 RUN wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go1.8.3.linux-amd64.tar.gz &&\
+    # Change to "gpu" for GPU support
+    TF_TYPE="cpu" && \
+    TARGET_DIRECTORY='/usr/local/go' && \
+    curl -L \
+     "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-${TF_TYPE}-$(go env GOOS)-x86_64-1.2.1.tar.gz" |
+    sudo tar -C $TARGET_DIRECTORY -xz && \
     rm -f go1.8.3.linux-amd64.tar.gz && \
-    mkdir -p /root/go/src && \
-    go get github.com/tensorflow/tensorflow/tensorflow/go && \
-    go test github.com/tensorflow/tensorflow/tensorflow/go
+    mkdir -p /root/go/src
+    #  \
+    # && go get github.com/tensorflow/tensorflow/tensorflow/go \
+    # && go test github.com/tensorflow/tensorflow/tensorflow/go
 
 COPY run-tensior-flow.sh /usr/local/bin/run-tensior-flow
 COPY start-tensoboard.sh /usr/local/bin/start-tensoboard
 
 RUN chmod +x /usr/local/bin/run-tensior-flow && \
-    mkdir -p /root/.tensoboard && \
+    mkdir -p /root/.tensoboard
 
 COPY tests/test.go /root/go/src/tests/main.go
 
 WORKDIR /root/go/src/tests
 
-RUN go run /root/go/src/tests/main.go
+# RUN go run /root/go/src/tests/main.go
 
 WORKDIR /root
 
