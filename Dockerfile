@@ -22,8 +22,11 @@ RUN apt-get update && \
     mkdir -p /root/tests && mkdir -p /root/tf-app
 
 COPY run-tensior-flow.sh /usr/local/bin/run-tensior-flow
+COPY start-tensoboard.sh /usr/local/bin/start-tensoboard
 
-RUN chmod +x /usr/local/bin/run-tensior-flow
+RUN chmod +x /usr/local/bin/run-tensior-flow && \
+    mkdir -p /root/.tensoboard && \
+    chmod +x /usr/local/bin/start-tensoboard
 
 COPY tests/test.py /root/tests/test.py
 
@@ -36,3 +39,9 @@ WORKDIR /root
 VOLUME ["/root/tf-app"]
 
 ENTRYPOINT ["run-tensior-flow"]
+
+# TensorBoard
+EXPOSE 6006
+
+# IPython
+EXPOSE 8888
