@@ -8,6 +8,10 @@ ARG RUNLEVEL=1
 ENV PATH=$PATH:/usr/local/bin::/usr/local/go/bin \
     GOROOT=/usr/local/go \
     GOPATH=/root/go \
+    PACKAGE_NAME="myapp" \
+    AUTO_BUILD=false \
+    BUILD_ARGUMENTS="-buildmode=exe" \
+    REPEAT_BUILD=false \
     DEBIAN_FRONTEND=noninteractive \
     TENSIOR_FLOW_VERSION=1.2.1 \
     TENSIOR_FLOW_TYPE=cp27 \
