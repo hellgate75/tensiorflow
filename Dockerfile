@@ -5,8 +5,11 @@ MAINTAINER Fabrizio Torelli (hellgate75@gmail.com)
 ARG DEBIAN_FRONTEND=noninteractive
 ARG RUNLEVEL=1
 
-ENV PATH=$PATH:/usr/local/bin \
+ENV PATH=$PATH:/usr/local/bin:/usr/local/cuda/bin \
     DEBIAN_FRONTEND=noninteractive \
+    CUDA_HOME=/usr/local/cuda \
+    CUDNN_HOME=/usr/local/cudnn \
+    LD_LIBRARY_PATH=/usr/local/cdnn/lib64:/usr/local/cuda/lib64 \
     TENSIOR_FLOW_VERSION=1.2.1 \
     TENSIOR_FLOW_TYPE=cp27
 
@@ -36,10 +39,11 @@ RUN chmod +x /usr/local/bin/run-tensior-flow
 
 RUN echo "Install cuDNN Nvidia library ..." && \
     wget -q http://appliances-us-west-2.s3-us-west-2.amazonaws.com/cuDNN/cudnn-8.0-linux-x64-v6.0.tgz -O /opt/cudnn-8.0-linux-x64-v6.0.tgz && \
-    tar -xzf /opt/cudnn-8.0-linux-x64-v6.0.tgz -C /opt/ && \
+    mkdir /usr/local/cdnn-6-0 && \
+    tar -xzf /opt/cudnn-8.0-linux-x64-v6.0.tgz -C /usr/local/cdnn-6-0 && \
     rm -f /opt/cudnn-8.0-linux-x64-v6.0.tgz && \
-    mv /opt/cuda /opt/cuDNN-6 && \
-    export LD_LIBRARY_PATH=/opt/cuDNN-6/lib64:$LD_LIBRARY_PATH
+    ln -s /usr/local/cdnn-6-0 /usr/local/cdnn && \
+    ln -s /opt/cuDNN-6/lib64/libcudnn.so /usr/local/cdnn-6-0/lib64/libcudnn.so.5
 
 RUN pip install --upgrade \
       https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-$TENSIOR_FLOW_VERSION-$TENSIOR_FLOW_TYPE-none-linux_x86_64.whl && \
