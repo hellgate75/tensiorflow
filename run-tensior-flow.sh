@@ -2,6 +2,14 @@
 
 echo "Running TensorFlow™ container ..."
 
+if ! [[ -e /dev/nvidia0  ]]; then
+  if [[ -e /dev/nvidia-uvm  ]]; then
+    ln -s /dev/nvidia-uvm /dev/nvidia0
+  else
+    echo "No Nvidia Card present, please try to run container with nvidia-docker ..."
+  fi
+fi
+
 if ! [[ -z "$1" ]] && [[ "-bash" == "$1" ]]; then
   echo "Starting TensorBoard™ ..."
   start-tensoboard
