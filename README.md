@@ -82,22 +82,27 @@ Here TensorFlow® environment variables :
 Here a sample command to run TensorFlow™ container:
 
 ```bash
-docker run -d -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-gg183
+docker run -d --privileged -v my/app/dir:/root/tf-app --name my-tensiorflow -p 8888:8888 -p 6006:6006 hellgate75/tensiorflow:1.2.1-gg183
 ```
 
 
 You can run container with `-bash` argument for an on-flight execution and destroy, as follow :
 
 ```bash
-docker run --rm -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-gg183 -bash my-command my-argument-1 ...  my-argument-n
+docker run --privileged --rm -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-gg183 -bash my-command my-argument-1 ...  my-argument-n
 ```
-
 
 *NOTE:*
 
 For GPU docker container versions, please use nvidia-docker available at :
 
 https://github.com/NVIDIA/nvidia-docker/wiki/Installation
+
+You can enforce nvidia drivers and devices running :
+
+```bash
+nvidia-docker run [-d | --rm] --privileged  -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-gg183 ....
+```
 
 
 ### Test TensorFlow™ console ###
