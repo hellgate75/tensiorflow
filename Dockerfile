@@ -40,6 +40,7 @@ RUN apt-get update && \
         python-pandas \
         python-numpy \
         python-matplotlib \
+        python-tk \
         software-properties-common \
         python-software-properties && \
     apt-get -y upgrade && \
