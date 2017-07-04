@@ -68,14 +68,14 @@ Here TensioFlow® environment variables :
 Here a sample command to run TensorFlow® container:
 
 ```bash
-docker run -d -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cg183
+docker run -d -v my/app/dir:/root/tf-app -p 8888:8888 -p 6006:6006 --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cg183
 ```
 
 
 You can run container with `-bash` argument for an on-flight execution and destroy, as follow :
 
 ```bash
-docker run --rm -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cg183 -bash my-command my-argument-1 ...  my-argument-n
+docker run --rm -v my/app/dir:/root/tf-app -p 8888:8888 -p 6006:6006 --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cg183 -bash my-command my-argument-1 ...  my-argument-n
 ```
 
 
