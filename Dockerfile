@@ -33,6 +33,7 @@ RUN apt-get update && \
         python-pandas \
         python-numpy \
         python-matplotlib \
+        python-tk \
         software-properties-common \
         python-software-properties && \
     apt-get -y upgrade && \
@@ -76,7 +77,7 @@ RUN pip --no-cache-dir install \
         pandas \
         Pillow && \
     pip install --upgrade \
-      https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-$TENSIOR_FLOW_VERSION-$TENSIOR_FLOW_TYPE-none-linux_x86_64.whl && \
+    https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-$TENSIOR_FLOW_VERSION-$TENSIOR_FLOW_TYPE-none-linux_x86_64.whl && \
     mkdir -p /root/tests && mkdir -p /root/tf-app
 
 COPY tests/test.py /root/tests/test.py
