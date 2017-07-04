@@ -53,16 +53,16 @@ TensorBoard WebUI Port
 IPython WebUI Port
 
 
-### TensiorFlow™ Docker Environment Entries ###
+### TensorFlow™ Docker Environment Entries ###
 
-Here TensioFlow® environment variables :
+Here TensoFlow® environment variables :
 
 None
 
 
 ### Sample command ###
 
-Here a sample command to run TensiorFlow™ container:
+Here a sample command to run TensorFlow™ container:
 
 ```bash
 docker run -d -v my/app/dir:/root/tf-app --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cp27
@@ -83,9 +83,9 @@ For GPU docker container versions, please use nvidia-docker available at :
 https://github.com/NVIDIA/nvidia-docker/wiki/Installation
 
 
-### Test TensiorFlow™ console ###
+### Test TensorFlow™ console ###
 
-In order to access to TensiorFlow™ shell :
+In order to access to TensorFlow™ shell :
 ```bash
     docker exec -it my-tensiorflow bash
 ```
