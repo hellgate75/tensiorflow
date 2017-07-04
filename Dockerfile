@@ -92,8 +92,7 @@ RUN wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz && \
     # Change to "gpu" for GPU support
     TF_TYPE="gpu" && \
     TARGET_DIRECTORY='/usr/local/go' && \
-    curl -L \
-     "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-${TF_TYPE}-$(go env GOOS)-x86_64-1.2.1.tar.gz" | \
+    wget "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-${TF_TYPE}-$(go env GOOS)-x86_64-1.2.1.tar.gz" | \
     tar -C $TARGET_DIRECTORY -xz && \
     echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list && \
     curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add - && \
