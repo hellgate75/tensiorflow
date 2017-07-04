@@ -15,7 +15,7 @@ USER root
 WORKDIR /
 
 RUN apt-get update && \
-    apt-get  --no-install-recommends install -y python-pip python-setuptools python-sklearn python-pandas python-numpy python-matplotlib software-properties-common python-software-properties && \
+    apt-get  --no-install-recommends install -y python-pip python-setuptools python-sklearn python-pandas python-numpy python-matplotlib python-tk software-properties-common python-software-properties && \
     pip install --upgrade pip && \
     pip install --upgrade \
       https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-$TENSIOR_FLOW_VERSION-$TENSIOR_FLOW_TYPE-none-linux_x86_64.whl && \
