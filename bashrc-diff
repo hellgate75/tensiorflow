@@ -1,0 +1,30 @@
+export CUDA_HOME=/usr/local/cuda
+if ! [ -z "$LD_LIBRARY_PATH" ]; then
+  export LD_LIBRARY_PATH=LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/go/lib
+else
+  export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/go/lib
+fi
+export LIBRARY_PATH=$LD_LIBRARY_PATH
+
+echo "+---------------------------------------------------------------+"
+echo "| In order to use Jupyter Notebook :                            |"
+echo "+---------------------------------------------------------------+"
+echo "| start-notebook [options]                                      |"
+echo "| Single/Multiple notebook jupyter server                       |"
+echo "|                                                               |"
+echo "| options :                                                     |"
+echo "| --NotebookApp.password: Password. eg :                        |"
+echo "| 'sha1:74ba40f8a388:c913541b7ee99d15d5ed31d4226bf7838f83a50e'  |"
+echo "| --NotebookApp.base_url: File path eg: /some/dir               |"
+echo "| --NotebookApp.token: Token for jupyter server (only Single)   |"
+echo "| --NotebookApp.keyfile : Key file path (.crt)                  |"
+echo "| --NotebookApp.certfile : Certificate file path (.pem)         |"
+echo "|                                                               |"
+echo "| Relevant environment variables                                |"
+echo "| JPY_PORT: Jupyter port (default: 8888)                        |"
+echo "| JPY_USER: Jupyter user (default: jupyter)                     |"
+echo "| JPY_COOKIE_NAME: Jupyter cookie (default: notebook)           |"
+echo "| JPY_BASE_URL: Jupyter url (default: \"\")                       |"
+echo "| JPY_HUB_PREFIX: Jupyter hub prefix (default: \"\")              |"
+echo "| JPY_HUB_API_URL: Jupyter API url (default: \"\")                |"
+echo "+---------------------------------------------------------------+"
