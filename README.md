@@ -52,14 +52,17 @@ Ports:
 
 
 `6006` :
+
  TensoBoard™ WebUI Port
 
 
 `8888` :
+
 IPython Jupyter WebUI Port
 
 
 `22` :
+
 SSH port (ssh public key will be printed in container logs)
 
 
