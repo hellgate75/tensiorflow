@@ -4,6 +4,7 @@
 Docker Image for TensorFlow™. This Docker image provides Python, Java, C and Go execution environment.
 
 Provided images :
+* [MASTER - TensorFlow™ 1.2.1 with Python 2.7 CPU](https://github.com/hellgate75/tensorflow)
 * [TensorFlow™ 1.2.1 with Python 2.7 CPU](https://github.com/hellgate75/tensorflow/tree/1.2.1-cp27)
 * [TensorFlow™ 1.2.1 with Python 2.7 GPU](https://github.com/hellgate75/tensorflow/tree/1.2.1-gp27)
 * [TensorFlow™ 1.2.1 with Go 1.8.3 CPU](https://github.com/hellgate75/tensorflow/tree/1.2.1-cg183)
@@ -47,32 +48,57 @@ https://github.com/hellgate75/tensorflow/tree/1.2.1-gp27/docs/cudnn_install-2.tx
 
 Here some information :
 
-Volumes : /root/tf-app
+Volumes : /root/tf-app, /root/.tensoboard/
 
 
 `/root/tf-app` :
 
-Folder to install sources.
+Folder dedicated to source code.
 
 
-Ports:
+`/root/.tensoboard` :
 
-6006, 88888
+Folder collecting logs and event logs.
+
+
+orts:
+
+6006, 88888, 22
 
 
 `6006` :
-TensorBoard WebUI Port
+
+ TensoBoard™ WebUI Port
 
 
 `8888` :
-IPython WebUI Port
+
+IPython Jupyter WebUI Port
+
+
+`22` :
+
+SSH port (ssh public key will be printed in container logs)
 
 
 ### TensorFlow™ Docker Environment Entries ###
 
-Here TensioFlow® environment variables :
+Here TensorFlow® environment variables :
 
-None
+* `AUTO_BUILD` : (true/false) Flag defining auto-build of package on start-up (default: false)
+* `REPEAT_BUILD` : (true/false) Flag defining auto-build on any start-up (default: false)
+* `BUILD_ARGUMENTS` : flag defining auto-build of package on start-up (default: "-buildmode=exe") - See : https://golang.org/pkg/go/build/
+* `JUPYTHER_TOKEN` : Jupyter access token (default: "7e7f9117ae5b96a8e69126ccb70841ec2911a051c6bb4ba7")
+
+
+Here some auto-install source form remote source, environment variables :
+* `TARGZ_ROOT_SSH_KEYS_URL` : URL to download tar gzipped root user ssh keys (default: "")
+* `TARGZ_USER_SSH_KEYS_URL` : URL to download tar gzipped custom defined (jupyter) ssh keys (default: "")
+* `TARGZ_SOURCE_URL` : URL to download tar gzipped source code (default: "")
+* `GIT_URL` : Git repository URL (default: "")
+* `GIT_BRANCH` : Git repository desired branch (default: "master")
+* `GIT_USER` : Git repository user (default: "")
+* `GIT_EMAIL` : Git repository email (default: "")
 
 
 ### Sample command ###
@@ -103,6 +129,12 @@ nvidia-docker run [-d | --rm] --privileged -v my/app/dir:/root/tf-app -p 8888:88
 ```
 
 
+### TensorFlow™ development tips ###
+
+TensorFlow™ TensoBoard event log folder is : `/root/.tensoboard`, please refer to this folder or use environment variable `TENSORFLOW_LOG_FOLDER` to set-up
+code development reference to log event folder.
+
+
 
 ### Test TensorFlow™ console ###
 
@@ -116,6 +148,22 @@ Then, into docker container, type :
 
 ```bash
     python /root/tests/test.py
+```
+
+
+In order to test TensorFlow™  TensoBoard, open in your browser :
+```bash
+http://{ host name | ip address | localhost }:6006
+eg.:
+http://localhost:6006
+```
+
+
+In order to test TensorFlow™ Jupyter Notebook Board (for testing and modify source), open in your browser :
+```bash
+http://{ host name | ipaddress | localhost }:8888/token={ configured token: JUPYTER_TOKEN }
+eg.:
+http://localhost:8888?token=7e7f9117ae5b96a8e69126ccb70841ec2911a051c6bb4ba7
 ```
 
 
