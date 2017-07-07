@@ -52,14 +52,17 @@ Ports:
 
 
 `6006` :
+
  TensoBoard™ WebUI Port
 
 
 `8888` :
+
 IPython Jupyter WebUI Port
 
 
 `22` :
+
 SSH port (ssh public key will be printed in container logs)
 
 
@@ -85,14 +88,14 @@ Here some auto-install source form remote source, environment variables :
 Here a sample command to run TensorFlow™ container:
 
 ```bash
-docker run -d -v my/app/dir:/root/tf-app -p 8888:8888 -p 6006:6006 --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cp27
+docker run -d -v my/app/dir:/root/tf-app -p 8888:8888 -p 6006:6006 --name my-tensiorflow hellgate75/tensiorflow:latest
 ```
 
 
 You can run container with `-bash` argument for an on-flight execution and destroy, as follow :
 
 ```bash
-docker run --rm -v my/app/dir:/root/tf-app -p 8888:8888 -p 6006:6006 --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cp27 -bash my-command my-argument-1 ...  my-argument-n
+docker run --rm -v my/app/dir:/root/tf-app -p 8888:8888 -p 6006:6006 --name my-tensiorflow hellgate75/tensiorflow:latest -bash my-command my-argument-1 ...  my-argument-n
 ```
 
 
@@ -106,7 +109,7 @@ https://github.com/NVIDIA/nvidia-docker/wiki/Installation
 You can enforce nvidia drivers and devices running :
 
 ```bash
-nvidia-docker run [-d | --rm] --privileged  -v my/app/dir:/root/tf-app -p 8888:8888 -p 6006:6006 --name my-tensiorflow hellgate75/tensiorflow:1.2.1-gg183 ....
+nvidia-docker run [-d | --rm] --privileged  -v my/app/dir:/root/tf-app -p 8888:8888 -p 6006:6006 --name my-tensiorflow hellgate75/tensiorflow:latest ....
 ```
 
 
