@@ -137,23 +137,6 @@ if ! [[ -z "$1" ]] && [[ "-bash" == "$1" ]]; then
 else
   echo "Starting SSH daemon ..."
   service ssh start
-  # if ! [[ -e /root/go/src/$PACKAGE_NAME ]]; then
-  #   ln -s /root/tf-app /root/go/src/$PACKAGE_NAME
-  # fi
-
-  if [[ "true" == "$AUTO_BUILD" ]]; then
-    echo "Building and install Go Custom Package : $PACKAGE_NAME"
-    echo "Building Argument : $BUILD_ARGUMENTS"
-    echo "Repeat At Start-Up : $REPEAT_BUILD"
-    echo ""
-    echo ""
-    if ! [[ -e /root/app_built ]]; then
-      go install "$BUILD_ARGUMENTS" $PACKAGE_NAME
-      if [[ "true" != "$REPEAT_BUILD" ]]; then
-        touch /root/app_built
-      fi
-    fi
-  fi
 
   echo "Starting Jupyter Notebook ..."
   if [[ -z "$(netstat -anp | grep 8888)" ]]; then
