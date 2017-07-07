@@ -137,9 +137,9 @@ if ! [[ -z "$1" ]] && [[ "-bash" == "$1" ]]; then
 else
   echo "Starting SSH daemon ..."
   service ssh start
-  # if ! [[ -e /root/go/src/$PACKAGE_NAME ]]; then
-  #   ln -s /root/tf-app /root/go/src/$PACKAGE_NAME
-  # fi
+  if ! [[ -e /root/go/src/$PACKAGE_NAME ]]; then
+    ln -s /root/tf-app /root/go/src/$PACKAGE_NAME
+  fi
 
   if [[ "true" == "$AUTO_BUILD" ]]; then
     echo "Building and install Go Custom Package : $PACKAGE_NAME"
