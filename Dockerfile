@@ -5,24 +5,49 @@ MAINTAINER Fabrizio Torelli (hellgate75@gmail.com)
 ARG DEBIAN_FRONTEND=noninteractive
 ARG RUNLEVEL=1
 
-ENV PATH=$PATH:/usr/local/go/bin \
+ENV PATH=/usr/local/bin:/usr/local/go/bin:/opt/conda/bin:$PATH \
     GOROOT=/usr/local/go \
     GOPATH=/root/go \
     PACKAGE_NAME="myapp" \
     AUTO_BUILD=false \
     BUILD_ARGUMENTS="-buildmode=exe" \
     REPEAT_BUILD=false \
+    JUPYTHER_TOKEN="7e7f9117ae5b96a8e69126ccb70841ec2911a051c6bb4ba7" \
+    TENSORFLOW_LOG_FOLDER=/root/.tensoboard \
+    GIT_URL="" \
+    GIT_BRANCH="master" \
+    GIT_USER="" \
+    GIT_EMAIL="" \
+    TARGZ_SOURCE_URL="" \
+    TARGZ_ROOT_SSH_KEYS_URL="" \
+    TARGZ_USER_SSH_KEYS_URL="" \
     DEBIAN_FRONTEND=noninteractive \
     CUDA_HOME=/usr/local/cuda \
     LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/go/lib \
     LIBRARY_PATH=/usr/local/go/lib \
-    TENSIOR_FLOW_VERSION=1.2.1
+    TENSIOR_FLOW_VERSION=1.2.1 \
+    MINICONDA_VERSION=4.3.21 \
+    CONDA_DIR=/opt/conda \
+    SHELL=/bin/bash \
+    NB_USER=jupyter \
+    NB_UID=1000 \
+    NB_GID=100 \
+    GRANT_SUDO=yes \
+    NB_HOME=/home/jupyter \
+    LC_ALL="en_US.UTF-8" \
+    LANG="en_US.UTF-8" \
+    LANGUAGE="en_US.UTF-8" \
+    DISPLAY=:0
 
 USER root
 
 WORKDIR /opt
 
-RUN apt-get update && \
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+    locale-gen "en_US.UTF-8" && \
+    gpg --keyserver pgpkeys.mit.edu --recv-key  010908312D230C5F && \
+    gpg -a --export 010908312D230C5F | sudo apt-key add - && \
+    apt-get update && \
     apt-get  --no-install-recommends install -y \
         git && \
     apt-get -y upgrade && \
@@ -62,9 +87,12 @@ WORKDIR /root
 
 RUN go run /root/go/src/tests/main.go
 
-VOLUME ["/root/tf-app"]
+VOLUME ["/root/tf-app", "/root/.tensoboard"]
 
 ENTRYPOINT ["run-tensior-flow"]
+
+# SSH
+EXPOSE 22
 
 # TensorBoard
 EXPOSE 6006
