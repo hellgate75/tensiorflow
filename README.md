@@ -85,6 +85,10 @@ SSH port (ssh public key will be printed in container logs)
 
 Here TensorFlow® environment variables :
 
+* `PACKAGE_NAME` : Name of go language package assigned to your application
+* `AUTO_BUILD` : (true/false) Flag defining auto-build of package on start-up (default: false)
+* `REPEAT_BUILD` : (true/false) Flag defining auto-build on any start-up (default: false)
+* `BUILD_ARGUMENTS` : flag defining auto-build of package on start-up (default: "-buildmode=exe") - See : https://golang.org/pkg/go/build/
 * `JUPYTHER_TOKEN` : Jupyter access token (default: "7e7f9117ae5b96a8e69126ccb70841ec2911a051c6bb4ba7")
 
 

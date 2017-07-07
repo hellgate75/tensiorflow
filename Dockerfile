@@ -8,6 +8,10 @@ ARG RUNLEVEL=1
 ENV PATH=/usr/local/bin:/usr/local/go/bin:/opt/conda/bin:$PATH \
     GOROOT=/usr/local/go \
     GOPATH=/root/go \
+    PACKAGE_NAME="myapp" \
+    AUTO_BUILD=false \
+    BUILD_ARGUMENTS="-buildmode=exe" \
+    REPEAT_BUILD=false \
     JUPYTHER_TOKEN="7e7f9117ae5b96a8e69126ccb70841ec2911a051c6bb4ba7" \
     TENSORFLOW_LOG_FOLDER=/root/.tensoboard \
     GIT_URL="" \
