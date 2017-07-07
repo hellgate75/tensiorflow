@@ -52,14 +52,17 @@ Ports:
 
 
 `6006` :
+
  TensoBoard™ WebUI Port
 
 
 `8888` :
+
 IPython Jupyter WebUI Port
 
 
 `22` :
+
 SSH port (ssh public key will be printed in container logs)
 
 
@@ -106,7 +109,7 @@ https://github.com/NVIDIA/nvidia-docker/wiki/Installation
 You can enforce nvidia drivers and devices running :
 
 ```bash
-nvidia-docker run [-d | --rm] --privileged  -v my/app/dir:/root/tf-app -p 8888:8888 -p 6006:6006 --name my-tensiorflow hellgate75/tensiorflow:1.2.1-gg183 ....
+nvidia-docker run [-d | --rm] --privileged  -v my/app/dir:/root/tf-app -p 8888:8888 -p 6006:6006 --name my-tensiorflow hellgate75/tensiorflow:1.2.1-cp27 ....
 ```
 
 
